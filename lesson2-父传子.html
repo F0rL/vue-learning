@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父传子</title>
+  <style>
+    [v-cloak]{display: none}
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <h3>我是父组件</h3>
+    <input type="text" v-model="msg">
+    <p>父组件的信息：{{msg}}</p>
+    <child-component :msg="msg"></child-component>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const app = new Vue({
+          el: "#app",
+          data: {
+            msg: 'information'
+          },
+          components: {
+            'child-component': {
+              template: `<div>
+                <h4>我是子组件</h4>
+                <p>来自父组件的消息：{{msg}}</p>
+              </div>
+              `,
+              props: {
+                msg: String
+              }
+            }
+          }
+        })
+  </script>
+</body>
+</html>

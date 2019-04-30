@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>renderrender作用域插槽</title>
+  <style>
+    [v-cloak]{display: none}
+
+    /* #app {
+      border: 1px solid black;
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 20px
+    } */
+
+    #app {
+      border: 1px solid black;
+      width: 66%;
+      margin: auto;
+      padding: 20px
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <h3>我是父组件</h3>
+    <com-child>
+      <template v-slot:default="prop">
+        <p>{{prop.text}}</p>
+        <p>{{prop.name}}</p>
+      </template>
+    </com-child>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    
+    Vue.component('com-child',{
+      render(h) {
+        return h('p', this.$scopedSlots.default({
+          text: '子组件数据',
+          name: '子组件名'
+        }))
+      }
+    }
+    )
+
+    const app = new Vue({
+          el: "#app",
+          data: {
+          }
+        })
+  </script>
+</body>
+</html>

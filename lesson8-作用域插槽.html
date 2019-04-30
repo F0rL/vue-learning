@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>作用域插槽</title>
+  <style>
+    [v-cloak]{display: none}
+
+    /* #app {
+      border: 1px solid black;
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 20px
+    } */
+
+    #app {
+      border: 1px solid black;
+      width: 66%;
+      margin: auto;
+      padding: 20px
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <h3>我是父组件</h3>
+    <p>父组件绑定user</p>
+    <com-child1>
+      <template v-slot:default="slotProps">
+        <p>{{slotProps.user.firstName}}</p>
+      </template>
+    </com-child1>
+    <p>父组件未绑定user</p>
+    <com-child1>
+    </com-child1>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    
+    Vue.component('com-child1',{
+      data(){
+        return {
+          user: {
+            firstName: 'Xiong',
+            lastName: 'Fang'
+          }
+        }
+      },
+      template: `
+        <div>
+          <h4>我是子组件1</h4>
+          <slot :user="user">{{user.lastName}}</slot>
+        </div>
+      `,
+      methods: {
+
+      },
+    })
+
+    const app = new Vue({
+          el: "#app",
+          data: {
+          }
+        })
+  </script>
+</body>
+</html>

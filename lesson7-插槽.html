@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>插槽</title>
+  <style>
+    [v-cloak]{display: none}
+
+    /* #app {
+      border: 1px solid black;
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 20px
+    } */
+
+    #app {
+      border: 1px solid black;
+      width: 66%;
+      margin: auto;
+      padding: 20px
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <h3>我是父组件</h3>
+    <com-child1>{{msg}}</com-child1>
+    <com-child1></com-child1>
+    <h4>具名插槽</h4>
+    <com-child2>
+      <template v-slot:header>
+        <article>我是标题</article>
+      </template>
+      <template v-slot:footer>
+        <article>我是footer</article>
+      </template>
+      <template v-slot:main>
+        <article>我是内容</article>
+      </template>
+      <p>我是段落</p>
+    </com-child2>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('com-child1',{
+      data(){
+        return {
+
+        }
+      },
+      template: `
+        <div>
+          <h4>我是子组件1</h4>
+          <p>下面是插槽</p>
+          <slot>如果父组件没有插入内容，显示默认内容</slot>
+        </div>
+      `
+    })
+
+    Vue.component('com-child2',{
+      data(){
+        return {
+
+        }
+      },
+      template: `
+        <div>
+          <h3>我是子组件2</h3>
+          <p>具名插槽</p>
+          <slot name="footer"></slot>
+          <slot name="header"></slot>
+          <slot name="main"></slot>
+          <slot>如果父组件没有插入内容，显示默认内容</slot>
+        </div>
+      `
+    })
+    const app = new Vue({
+          el: "#app",
+          data: {
+            msg: '父组件内容'
+          }
+        })
+  </script>
+</body>
+</html>

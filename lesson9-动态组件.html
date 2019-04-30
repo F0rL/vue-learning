@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>动态组件</title>
+  <style>
+    [v-cloak]{display: none}
+
+    /* #app {
+      border: 1px solid black;
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 20px
+    } */
+
+    #app {
+      border: 1px solid black;
+      width: 66%;
+      margin: auto;
+      padding: 20px
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <button @click="changeView('a')">点击切换a</button>
+    <button @click="changeView('b')">点击切换b</button>
+    <button @click="changeView('c')">点击切换c</button>
+    <button @click="changeView('d')">点击切换d</button>
+    <component :is="componentId"></component>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    
+    Vue.component('com-a',{
+      template: `
+        <div>
+          <h4>子组件A</h4>
+        </div>
+      `
+    })
+    Vue.component('com-b',{
+      template: `
+        <div>
+          <h4>子组件B</h4>
+        </div>
+      `
+    })
+    Vue.component('com-c',{
+      template: `
+        <div>
+          <h4>子组件C</h4>
+        </div>
+      `
+    })
+    Vue.component('com-d',{
+      template: `
+        <div>
+          <h4>子组件D</h4>
+        </div>
+      `
+    })
+
+    const app = new Vue({
+          el: "#app",
+          data: {
+            componentId: 'com-c'
+          },
+          methods: {
+            changeView(tab){
+              this.componentId = 'com-'+ tab
+            }
+          },  
+        })
+  </script>
+</body>
+</html>

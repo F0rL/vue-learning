@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非父组件传递</title>
+  <style>
+    [v-cloak]{display: none}
+
+    /* #app {
+      border: 1px solid black;
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 20px
+    } */
+
+    #app {
+      border: 1px solid black;
+      width: 66%;
+      margin: auto;
+      padding: 20px
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <h3>我是父组件</h3>
+    <p>父组件信息：{{msg}}</p>
+    <button @click="getChild">通过$refs点击获取组件2的数据并修改父组件的数据</button>
+    <!-- <child-component @change="changeTotal"></child-component> -->
+    <com-child1></com-child1>
+    <com-child2 ref="son"></com-child3>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('com-child1',{
+      data(){
+        return {
+          msg: '子组件1的数据'
+        }
+      },
+      template: `<div>
+                <h4>我是子组件1</h4>
+                <p>子组件信息：{{msg}}</p>
+                <button @click="change">通过eventBus点击发送数据到child2</button>
+                <button @click="changeParent">通过$parent点击获取父组件的数据并修改</button>
+              </div>
+              `,
+      methods: {
+        change(){
+          this.$root.bus.$emit('send',this.msg)
+        },
+        changeParent(){
+          this.$parent.msg = this.msg
+        }
+      },
+    })
+    Vue.component('com-child2',{
+      data(){
+        return {
+          msg: '子组件2的原始数据'
+        }
+      },
+      template: `<div>
+                <h4>我是子组件2</h4>
+                <p>子组件信息：{{msg}}</p>
+              </div>
+              `,
+      created() {
+        this.$root.bus.$on('send', value=>{
+          this.msg = value
+        })
+      },  
+      methods: {
+
+      }
+    })
+    const app = new Vue({
+          el: "#app",
+          data: {
+            msg: '父组件数据',
+            bus: new Vue()
+          },
+          mounted() {
+
+          },
+          methods: {
+            getChild(){
+              console.log(this.$children)
+              this.msg = this.$refs.son.msg
+            }
+          }
+        })
+  </script>
+</body>
+</html>

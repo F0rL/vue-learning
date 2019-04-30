@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>render函数</title>
+  <style>
+    [v-cloak]{display: none}
+
+    /* #app {
+      border: 1px solid black;
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 20px
+    } */
+
+    #app {
+      border: 1px solid black;
+      width: 66%;
+      margin: auto;
+      padding: 20px
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <h3>我是父组件</h3>
+    <button @click="plus">切换h</button>
+    <button @click="changeImg">切换img</button>
+    <com-child :clevel="level" :show="isshow" :value="inputValue" @input="showValue">
+      defalut
+      <template v-slot:header>
+        <p>我是header</p>
+      </template>
+      <!-- v-slot:简写 -->
+      <template #footer>
+        <p>我是footer</p>
+      </template>
+    </com-child>
+    <p>实现v-model：{{inputValue}}</p>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    //render 函数
+    //第一个参数： String(html标签) Object（含有数据选项的对象） Function（方法返回含有数据选项的对象）
+    //第二个参数（可选）： Object ===> 数据对象
+    //第三个参数： String Array  ===> 子节点
+    Vue.component('com-child',{
+      render(h) {
+        var head = this.$slots.header,
+            foot = this.$slots.footer,
+            imgSrc,
+            self = this
+          if(this.show){
+            imgSrc = 'img/logo1.jpg'
+          }else {
+            imgSrc = 'img/logo2.jpg'
+          }
+        return h('h' + this.clevel,{
+          //数据对象
+          'class': {
+            bac: true
+          },
+          style: {
+            border: '1px solid black'
+          }
+        },[
+          //子元素
+          this.$slots.default,
+          h('p',{
+            domProps: {
+              innerText: '我是子节点'
+            }
+          }),
+          h('footer', foot),
+          h('header', head),
+          h('img',{
+            style: {
+              width: '100px'
+            },
+            attrs: {
+              src: imgSrc
+            }
+          }),
+          h('br'),
+          h('input',{
+            domProps: {
+              value: self.value
+            },
+            on: {
+              input: function(event){
+                self.$emit('input', event.target.value)
+              }
+            }
+          })
+        ]
+        )
+      },
+      props: {
+        clevel: Number,
+        show: Boolean,
+        value: String
+      }
+    })
+
+    const app = new Vue({
+          el: "#app",
+          data: {
+            level: 1,
+            isshow: true,
+            inputValue: '初始值'
+          },
+          methods: {
+            plus(){
+              this.level++
+            },
+            changeImg(){
+              this.isshow = !this.isshow
+            },
+            showValue(value){
+              this.inputValue = value
+            }
+          },
+        })
+  </script>
+</body>
+</html>

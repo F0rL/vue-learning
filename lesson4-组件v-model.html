@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件v-model</title>
+  <style>
+    [v-cloak]{display: none}
+
+    /* #app {
+      border: 1px solid black;
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 20px
+    } */
+
+    #app {
+      border: 1px solid black;
+      width: 50%;
+      margin: auto;
+      padding: 20px
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <h3>我是父组件</h3>
+    <p>父组件接收的信息：{{msg}}</p>
+    <!-- <child-component @change="changeTotal"></child-component> -->
+    <child-component v-model="msg"></child-component>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const app = new Vue({
+          el: "#app",
+          data: {
+            msg: null
+          },
+          components: {
+            'child-component': {
+              data(){
+                return {
+                  msg: 1000
+                }
+              },
+              template: `<div>
+                <h4>我是子组件</h4>
+                <p>子组件信息：{{msg}}</p>
+                <button @click="plus">+1000</button>
+              </div>
+              `,
+              methods: {
+                plus(){
+                  this.msg+=1000
+                  this.$emit('input',this.msg)
+                }
+              },
+            }
+          }
+        })
+  </script>
+</body>
+</html>

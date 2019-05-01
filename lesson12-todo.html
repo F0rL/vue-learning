@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>简单的todo</title>
+  <style>
+    [v-cloak]{display: none}
+
+    /* #app {
+      border: 1px solid black;
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      padding: 20px
+    } */
+
+    #app {
+      border: 1px solid black;
+      width: 66%;
+      margin: auto;
+      padding: 20px
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <p>todo</p>
+    <div>
+      <input type="text" v-model="inputValue">
+      <button @click="handlerSubmit">保存</button>
+      <ul>
+        <todo-item 
+          v-for="(item, index) in list"
+          :needtodo="item"
+          :todoindex="index"
+          @deleteitem="doDelete"
+          ></todo-item>
+      </ul>
+    </div>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('todo-item', {
+      template: `<div><li>{{needtodo}}</li><span @click="handler">X</span></div>`,
+      props: {
+        needtodo: String,
+        todoindex: Number,
+      },
+      methods: {
+        handler(){
+          console.log(this.todoindex)
+          this.$emit('deleteitem', this.todoindex)
+        }
+      }
+    })
+
+    const app = new Vue({
+          el: "#app",
+          data: {
+            inputValue: null,
+            list: []
+          },
+          methods: {
+            handlerSubmit(){
+              this.list.push(this.inputValue)
+              this.inputValue = null
+            },
+            doDelete(value){
+              this.list.splice(value,1)
+            }
+          },
+        })
+  </script>
+</body>
+</html>

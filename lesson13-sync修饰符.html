@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>.sync修饰符</title>
+  <style>
+    [v-cloak]{display: none}
+
+    #app {
+      border: 1px solid black;
+      width: 50%;
+      margin: 0 auto;
+      padding: 20px
+    }
+  </style>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <h3>我是父组件</h3>
+    <p>父组件接收的信息：{{fmsg}}</p>
+    <button @click="fPlus">同步+1000</button>
+    <child-component :smsg.sync="fmsg"></child-component>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const app = new Vue({
+          el: "#app",
+          data: {
+            fmsg: 1000
+          },
+          methods: {
+            fPlus(){
+              this.fmsg += 1000
+            }
+          },
+          components: {
+            'child-component': {
+              // data(){
+              //   return {
+              //     msg: 1000
+              //   }
+              // },
+              props: ['smsg'],
+              template: `<div>
+                <h4>我是子组件</h4>
+                <p>子组件信息：{{smsg}}</p>
+                <button @click="plus">+1000</button>
+                <button @click="reduce">-1000</button>
+                <button @click="emPlus">同步+1000</button>
+              </div>
+              `,
+              methods: {
+                plus(){
+                  this.smsg+=1000
+                },
+                reduce(){
+                  this.smsg-=1000
+                },
+                emPlus(smsg){
+                  val = this.smsg + 1000
+                  this.$emit('update:smsg', val)
+                }
+              },
+            }
+          }
+        })
+  </script>
+</body>
+</html>

@@ -9,7 +9,12 @@ export default [
     component: Home,
     props: route => ({
       food: route.query.food 
-    })
+    }),
+    // beforeEnter: (to, from, next) => {
+    //   if(from.name === 'About') alert('这是从About页来的')
+    //   else alert('这不是从About页来的')
+    //   next()
+    // }
   },
   {
     path: '/about',
@@ -18,6 +23,9 @@ export default [
     props: {
       food: 'banana',
       color: 'red'
+    },
+    meta: {
+      title: '关于'
     }
   },
   {
@@ -51,6 +59,11 @@ export default [
     redirect: {
       name: 'Home'
     }
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login.vue')
   },
   // {
   //   path: '/main',

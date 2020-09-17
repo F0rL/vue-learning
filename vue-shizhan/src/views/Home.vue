@@ -52,6 +52,15 @@ export default {
       }
     },
   },
-  components: {},
+  beforeRouteEnter (to, from, next) {
+    console.log('to: ', to.name)
+    console.log('from: ', from.name)
+    next()
+  },
+  beforeRouteLeave (to, from, next) {
+    const leave = confirm('确定要离开么')
+    if(leave) next()
+    else next(false)
+  }
 }
 </script>

@@ -14,6 +14,9 @@ export default {
       default: 'Lison',
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    console.log(to.name, from.name)
+  }
 }
 </script>
 

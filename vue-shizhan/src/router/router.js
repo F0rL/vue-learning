@@ -51,7 +51,7 @@ export default [
     redirect: {
       name: 'Home'
     }
-  }
+  },
   // {
   //   path: '/main',
   //   redirect: to => {
@@ -67,4 +67,8 @@ export default [
   //     }
   //   }
   // }
+  {
+    path: '*',
+    component: () => import('@/views/Error-404.vue')
+  }
 ]

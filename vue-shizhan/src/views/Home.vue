@@ -3,6 +3,7 @@
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">Push跳转</button>
     <button @click="handleClick('replace')">Replace跳转</button>
+    <p>home food ===> {{food}}</p>
   </div>
 </template>
 
@@ -11,6 +12,12 @@
 
 export default {
   name: 'Home',
+  props: {
+    food: {
+      type: String,
+      default: 'apple',
+    },
+  },
   methods: {
     handleClick(type) {
       if (type === 'back') {
@@ -36,7 +43,7 @@ export default {
         // 模板语法
         const name = 'params listen'
         this.$router.push({
-          path: `/argu/${name}`
+          path: `/argu/${name}`,
         })
       } else if (type === 'replace') {
         this.$router.replace({

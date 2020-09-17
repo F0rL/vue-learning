@@ -3,9 +3,10 @@
     <div id="nav">
       <router-link to="/">Home</router-link>|
       <router-link :to="{name: 'About'}">About</router-link>|
-      <router-link to="/argu">Argu</router-link>|
+      <router-link to="/argu/aaa">Argu</router-link>|
+      <router-link to="/name_view">Name_view</router-link>|
     </div>
-    <router-view />
+    <router-view/>
     <router-view name="email"/>
     <router-view name="tel"/>
   </div>

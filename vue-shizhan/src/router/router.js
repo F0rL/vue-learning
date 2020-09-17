@@ -6,17 +6,25 @@ export default [
     name: 'Home',
     // 别名
     alias: '/home_page',
-    component: Home
+    component: Home,
+    props: route => ({
+      food: route.query.food 
+    })
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import('@/views/About.vue')
+    component: () => import('@/views/About.vue'),
+    props: {
+      food: 'banana',
+      color: 'red'
+    }
   },
   {
     path: '/argu/:name',
     name: 'Argu',
-    component: () => import('@/views/Argu.vue')
+    component: () => import('@/views/Argu.vue'),
+    props: true
   },
   {
     path: '/parent',
@@ -34,7 +42,7 @@ export default [
     path: '/name_view',
     components: {
       default: () => import('@/views/Child.vue'),
-      mail: () => import('@/views/Email.vue'),
+      email: () => import('@/views/Email.vue'),
       tel: () => import('@/views/Tel.vue')
     }
   },
@@ -43,7 +51,7 @@ export default [
     redirect: {
       name: 'Home'
     }
-  },
+  }
   // {
   //   path: '/main',
   //   redirect: to => {

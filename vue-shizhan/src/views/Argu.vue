@@ -1,21 +1,21 @@
 <template>
   <div>
     <h2>Argu</h2>
-    {{$route.params.name}}
+    {{name}}
   </div>
 </template>
 
 <script>
 export default {
   name: 'Argu',
-  data() {
-    return {
-
+  props: {
+    name: {
+      type: String,
+      default: 'Lison',
     }
-  }
+  },
 }
 </script>
 
 <style scoped lang="scss">
-
 </style>

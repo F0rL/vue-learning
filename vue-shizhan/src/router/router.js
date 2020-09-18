@@ -29,6 +29,11 @@ export default [
     }
   },
   {
+    path: '/store',
+    name: 'Store',
+    component: () => import('@/views/Store.vue'),
+  },
+  {
     path: '/argu/:name',
     name: 'Argu',
     component: () => import('@/views/Argu.vue'),

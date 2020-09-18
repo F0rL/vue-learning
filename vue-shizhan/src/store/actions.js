@@ -1,7 +1,6 @@
 import { getAppName } from '@/api/app'
 const actions = {
   async updateAppName({ commit }) {
-    console.log('sdsf')
     try {
       const {
         info: { appName }

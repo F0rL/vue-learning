@@ -3,12 +3,14 @@
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">Push跳转</button>
     <button @click="handleClick('replace')">Replace跳转</button>
+    <button @click="getInfo">获取信息</button>
     <p>home food ===> {{food}}</p>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { getUserInfo } from '@/api/user'
 
 export default {
   name: 'Home',
@@ -51,16 +53,23 @@ export default {
         })
       }
     },
+    getInfo() {
+      getUserInfo({ userId: 21 }).then((res) => {
+        console.log(res)
+      })
+    },
   },
-  beforeRouteEnter (to, from, next) {
+
+  beforeRouteEnter(to, from, next) {
     console.log('to: ', to.name)
     console.log('from: ', from.name)
     next()
   },
-  beforeRouteLeave (to, from, next) {
-    const leave = confirm('确定要离开么')
-    if(leave) next()
-    else next(false)
-  }
+  beforeRouteLeave(to, from, next) {
+    // const leave = confirm('确定要离开么')
+    // if(leave) next()
+    // else next(false)
+    next()
+  },
 }
 </script>

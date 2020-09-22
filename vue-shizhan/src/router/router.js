@@ -75,6 +75,11 @@ export default [
     name: 'CountTO',
     component: () => import('@/views/Count-to.vue')
   },
+  {
+    path: '/split',
+    name: 'Split',
+    component: () => import('@/views/Split.vue')
+  },
   // {
   //   path: '/main',
   //   redirect: to => {

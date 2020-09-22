@@ -7,6 +7,7 @@
       <router-link to="/name_view">Name_view</router-link>|
       <router-link to="/login">Login</router-link>|
       <router-link to="/count-to">countTo</router-link>|
+      <router-link to="/split">split</router-link>|
     </div>
     <transition-group :name="routerTransition">
       <router-view key="default" />
@@ -55,7 +56,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
 }
 

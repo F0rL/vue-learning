@@ -8,8 +8,8 @@ export default [
     alias: '/home_page',
     component: Home,
     props: route => ({
-      food: route.query.food 
-    }),
+      food: route.query.food
+    })
     // beforeEnter: (to, from, next) => {
     //   if(from.name === 'About') alert('这是从About页来的')
     //   else alert('这不是从About页来的')
@@ -31,7 +31,7 @@ export default [
   {
     path: '/store',
     name: 'Store',
-    component: () => import('@/views/Store.vue'),
+    component: () => import('@/views/Store.vue')
   },
   {
     path: '/argu/:name',
@@ -69,6 +69,11 @@ export default [
     path: '/login',
     name: 'Login',
     component: () => import('@/views/Login.vue')
+  },
+  {
+    path: '/count-to',
+    name: 'CountTO',
+    component: () => import('@/views/Count-to.vue')
   },
   // {
   //   path: '/main',

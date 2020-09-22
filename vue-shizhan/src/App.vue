@@ -6,9 +6,10 @@
       <router-link to="/argu/aaa">Argu</router-link>|
       <router-link to="/name_view">Name_view</router-link>|
       <router-link to="/login">Login</router-link>|
+      <router-link to="/count-to">countTo</router-link>|
     </div>
     <transition-group :name="routerTransition">
-      <router-view key="default"/>
+      <router-view key="default" />
       <router-view key="email" name="email" />
       <router-view key="tel" name="tel" />
     </transition-group>
@@ -18,14 +19,16 @@
 export default {
   data() {
     return {
-      routerTransition: ''
+      routerTransition: '',
     }
   },
   watch: {
-    '$route' (to) {
-      to.query && to.query.transitionName && (this.routerTransition = to.query.transitionName)
-    }
-  }
+    $route(to) {
+      to.query &&
+        to.query.transitionName &&
+        (this.routerTransition = to.query.transitionName)
+    },
+  },
 }
 </script>
 
